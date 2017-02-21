@@ -1,0 +1,76 @@
+import React, { Component } from 'react'
+
+class Register extends Component {
+
+	constructor(){
+		super()
+		this.state = {
+			registration:{
+				username: '',
+				password: ''
+			}
+		}
+	}
+
+	updateRegistration(event){
+		let updated = Object.assign({}, this.state.registration)
+		updated[event.target.id] = event.target.value
+		this.setState({
+			registration: updated
+		})
+	}
+
+	submitRegistration(event){
+		event.preventDefault()
+		if (this.state.registration.username.length == 0) {
+			alert('Please add your username.')
+			return
+		}
+
+		if (this.state.registration.password.length == 0) {
+			alert('Please set your password.')
+			return
+		}
+
+		this.props.onRegister(this.state.registration)
+	}
+
+	submitLoginCredentials(event){
+		event.preventDefault()
+		if (this.state.registration.username.length == 0) {
+			alert('Please add your username.')
+			return
+		}
+
+		if (this.state.registration.password.length == 0) {
+			alert('Please set your password.')
+			return
+		}
+
+		this.props.onLogin(this.state.registration)
+	}	
+
+	render() {
+		return (
+			<div>
+                <div>
+        		    <div className="panel panel-primary">
+					    <div className="panel-heading">Sign Up</div>
+				        <div className="panel-body">
+						    <input onChange={this.updateRegistration.bind(this)} id="username"
+						    	type="text" className="form-group" placeholder="Username" /><br />
+						    <input onChange={this.updateRegistration.bind(this)} id="password" 
+					    	type="password" className="form-group" placeholder="Password" /><br />
+						    <button onClick={this.submitRegistration.bind(this)} 
+						    	className="btn btn-success pull-middle">Join</button>
+						    <button onClick={this.submitLoginCredentials.bind(this)} 
+						    	className="btn btn-success pull-right">Login</button>
+				        </div>
+				    </div>			    
+                </div>
+			</div>
+		)
+	}
+}
+
+export default Register
